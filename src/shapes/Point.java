@@ -57,6 +57,11 @@ public class Point // immutable
     double maxY = (a.y<b.y)? b.y : a.y;
     return minX <= x && x <= maxX && minY <= y && y <= maxY;
     }
+  @Override
+	public String toString()
+	{
+		return "x= " + x +"y= "+y;	
+	}
 
   public double dx(Point other)
     {

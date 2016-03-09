@@ -1,11 +1,14 @@
 package model;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import shapes.Point;
-import shapes.Shape;
 import shapes.TerrainList;
 
-public class GameBoard
+public class GameBoard extends Observable
 {
+	private boolean paused = false;
 	private int delayTime = 3000;
 	private LemmingList lemmingList = new LemmingList();
 	private Scenario scenario;
@@ -19,17 +22,20 @@ public class GameBoard
 
 	private void setUpGameBoard()
 	{
-		addLemmings();
+		releaseLemmings();
 
 	}
 
-	private void addLemmings()
+	public void addObserver(Observer observer)
 	{
-		for (int i = 0; i < scenario.getLemmings(); i++)
-		{
-			lemmingList.add(new Lemming(scenario.getStartPosition()));
-		}
+		lemmingList.addObserver(observer);
+		scenario.getTerrain().addObserver(observer);
+		super.addObserver(observer);
+	}
 
+	public LemmingList getLemmings()
+	{
+		return lemmingList;
 	}
 
 	public void onLemmingSaved()
@@ -41,6 +47,11 @@ public class GameBoard
 	{
 		releaseLemmings();
 		moveLemmings();
+	}
+	
+	public void setLemmingSkill(Skill skill, Lemming lemming)
+	{
+		lemming.setSkill(skill);
 	}
 
 	private synchronized void moveLemmings()
@@ -55,6 +66,7 @@ public class GameBoard
 
 			}
 		}
+		notifyObservers();
 
 	}
 
@@ -99,6 +111,7 @@ public class GameBoard
 		{
 			lemmingList.add(new Lemming(scenario.getStartPosition()));
 			simulateTime();
+
 		}
 
 	}
@@ -121,5 +134,20 @@ public class GameBoard
 		} catch (Exception e)
 		{
 		}
+	}
+
+	public void pause()
+	{
+		if (!paused)
+		{
+			paused = true;
+			// pausa
+		} else
+		{
+			paused = false;
+			//starta igen
+			
+		}
+
 	}
 }

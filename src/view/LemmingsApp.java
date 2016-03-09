@@ -1,13 +1,12 @@
 package view;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 
+import controller.GameManager;
 import model.DiggerScenario;
 import model.GameBoard;
 import model.Scenario;
-import shapes.TerrainList;
 
 public class LemmingsApp extends JFrame
 {
@@ -15,30 +14,25 @@ public class LemmingsApp extends JFrame
 	
 	private Scenario diggerScenario = new DiggerScenario();
 	private GameBoard gameBoard = new GameBoard(diggerScenario);
+	private GameManager manager = new GameManager(gameBoard);
+	private GameBoardPanel gamePanel = new GameBoardPanel(manager);
+	private ButtonPanel skillPanel = new ButtonPanel(manager);
+	private StatusPanel statusPanel = new StatusPanel();
 	private Container c;
-	private JPanel gamePanel, skillPanel, statusPanel;
 
 	public LemmingsApp()
 	{
 		super("Lemmings");
+		c = getContentPane();
+		c.setLayout(new BorderLayout());
 		
-		gamePanel = createGamePanel();
-		skillPanel = createSkillPanel();
-		statusPanel = createStatusPanel();
-	}
-	
-	private JPanel createGamePanel()
-	{		
-		JPanel temp = new JPanel();
-		temp.add(addTerrain(gameBoard.getTerrain()));
-		addLemmings();
-		return null;
-	}
-
-	private Shape addTerrain(TerrainList terrainList)
-	{
-		if(terrainList.size() != 0)
-			
+		c.add(gamePanel, BorderLayout.CENTER);
+		c.add(skillPanel, BorderLayout.SOUTH);
+		c.add(statusPanel, BorderLayout.NORTH);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setSize(1200, 800);
+		setLocationRelativeTo(null);
+		setVisible(true);
 		
 	}
 

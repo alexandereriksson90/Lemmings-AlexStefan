@@ -14,6 +14,7 @@ public class Triangle extends Shape
 		line2 = new Line(new Point(p.getX()+ (sideLength/2), p.getY()+height), new Point(p.getX()+ sideLength, p.getY()));
 		line3 = new Line(p, new Point(p.getX()+ sideLength, p.getY()));
 		
+		
 	}
 
 	@Override
@@ -38,15 +39,20 @@ public class Triangle extends Shape
 		return line3;
 	}
 
+
 	public void setPosition(Point p)
     {
-		line1.setP1(p);
-		line1.setP2(new Point(p.getX()+ (sideLength/2), p.getY()+height));
-		line2.setP1(new Point(p.getX()+ (sideLength/2), p.getY()+height));
-		line2.setP2(new Point(p.getX()+ sideLength, p.getY()));
-		line3.setP1(p);
-		line3.setP2(new Point(p.getX()+ sideLength, p.getY()));		
 		super.setPosition(p);
+		if (line1 != null && line2 != null && line3 != null)
+		{
+			line1.setP1(p);
+			line1.setP2(new Point(p.getX()+ (sideLength/2), p.getY()+height));
+			line2.setP1(new Point(p.getX()+ (sideLength/2), p.getY()+height));
+			line2.setP2(new Point(p.getX()+ sideLength, p.getY()));
+			line3.setP1(p);
+			line3.setP2(new Point(p.getX()+ sideLength, p.getY()));
+		}
+		
     }
 	
 	@Override

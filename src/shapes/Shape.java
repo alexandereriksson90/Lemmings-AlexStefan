@@ -11,7 +11,8 @@ public abstract class Shape implements Cloneable
 
 	public Shape(Point p)
 	{
-		setPosition(p);
+		
+		this.setPosition(p); 
 	}
 
 	public abstract void reDefine(double x, double y); // size, mm
@@ -40,8 +41,11 @@ public abstract class Shape implements Cloneable
 
 	public void setPosition(Point p)
 	{
+	
 		position = p;
 	}
+	
+	
 
 	public abstract void accept(ShapeVisitor visitor);
 

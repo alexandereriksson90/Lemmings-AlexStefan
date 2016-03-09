@@ -2,6 +2,7 @@ package model;
 
 import shapes.Point;
 import shapes.Shape;
+import shapes.ShapePainterVisitor;
 import shapes.Triangle;
 
 public class Lemming
@@ -17,6 +18,7 @@ public class Lemming
 	
 	public Lemming(Point p)
 	{
+		
 		lemming = new Triangle(30.0, p);
 		direction = RIGHT;
 	}
@@ -64,6 +66,12 @@ public class Lemming
 	public int getDirection()
 	{	
 		return direction;
+	}
+
+	public void accept(ShapePainterVisitor visitor)
+	{
+		visitor.visit(lemming);
+		
 	}
 
 

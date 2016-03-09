@@ -1,6 +1,5 @@
 package shapes;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import shapes.Line;
@@ -10,22 +9,11 @@ import shapes.ShapeVisitor;
 public class ShapePainterVisitor implements ShapeVisitor
 {
 	private Graphics graphics;
-	private Color originalColor;
+
 
 	public ShapePainterVisitor(Graphics g)
 	{
 		graphics = g;
-	}
-
-	public void emphasize()
-	{
-		originalColor = graphics.getColor();
-		graphics.setColor(Color.blue);
-	}
-
-	public void normal()
-	{
-		graphics.setColor(originalColor);
 	}
 
 	@Override
