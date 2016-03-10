@@ -1,15 +1,15 @@
 package shapes;
 
-public abstract class Shape implements Cloneable
+public abstract class TerrainUnit implements Cloneable
 {
 	protected Point position;
 
-	public Shape(double x, double y)
+	public TerrainUnit(double x, double y)
 	{
 		this(new Point(x, y));
 	}
 
-	public Shape(Point p)
+	public TerrainUnit(Point p)
 	{
 		
 		this.setPosition(p); 
@@ -17,12 +17,12 @@ public abstract class Shape implements Cloneable
 
 	public abstract void reDefine(double x, double y); // size, mm
 
-	public Shape clone()
+	public TerrainUnit clone()
 	{
-		Shape result = null;
+		TerrainUnit result = null;
 		try
 		{
-			result = (Shape) super.clone();
+			result = (TerrainUnit) super.clone();
 		} catch (CloneNotSupportedException e)
 		{
 		}

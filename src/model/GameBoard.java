@@ -70,8 +70,10 @@ public class GameBoard extends Observable
 
 	}
 
-	private boolean shouldFall(Lemming l)
+	public boolean shouldFall(Lemming l)
 	{
+		// if(kollision i Y-led)
+		//		return true;
 		return false;
 	}
 

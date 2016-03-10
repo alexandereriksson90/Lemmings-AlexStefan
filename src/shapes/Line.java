@@ -2,7 +2,7 @@ package shapes;
 
 
 
-public class Line extends Shape
+public class Line extends TerrainUnit
   {
   public Point p1, p2;
 

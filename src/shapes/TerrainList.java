@@ -1,6 +1,6 @@
 package shapes;
 
-public class TerrainList extends ObservableList<Shape>
+public class TerrainList extends ObservableList<TerrainUnit>
   {
 
   }

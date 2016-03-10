@@ -4,7 +4,7 @@ import java.util.Observer;
 
 import model.GameBoard;
 import model.Lemming;
-import shapes.Shape;
+import shapes.TerrainUnit;
 import shapes.ShapePainterVisitor;
 import model.Skill;
 import shapes.ShapeVisitor;
@@ -34,7 +34,7 @@ public class GameManager
 	
 	public void addTerrain(ShapeVisitor visitor)
 	{
-		 for (Shape shape : model.getTerrain())
+		 for (TerrainUnit shape : model.getTerrain())
 		      shape.accept(visitor);
 		    	
 	}

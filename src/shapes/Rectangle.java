@@ -1,6 +1,6 @@
 package shapes;
 
-public class Rectangle extends Shape
+public class Rectangle extends TerrainUnit
   {
   public Point p1, p2;
 

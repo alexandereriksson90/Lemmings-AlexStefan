@@ -1,6 +1,6 @@
 package shapes;
 
-public class Triangle extends Shape
+public class Triangle extends TerrainUnit
 {
 	private Line line1,line2,line3;
 	private double height,sideLength;

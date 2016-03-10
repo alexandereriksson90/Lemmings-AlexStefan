@@ -1,7 +1,7 @@
 package model;
 
 import shapes.Point;
-import shapes.Shape;
+import shapes.TerrainUnit;
 import shapes.ShapePainterVisitor;
 import shapes.Triangle;
 
@@ -16,12 +16,25 @@ public class Lemming
 	
 	private int direction;
 	
+	private Behaviour behaviour;
+	private boolean isFalling;
+	
 	public Lemming(Point p)
 	{
-		
 		lemming = new Triangle(30.0, p);
 		direction = RIGHT;
 	}
+	
+	public Behaviour getBehaviour()
+	{
+		return behaviour;
+	}
+
+	public void setBehaviour(Behaviour behaviour)
+	{
+		this.behaviour = behaviour;
+	}
+
 	
 	public Point getPosition()
 	{
@@ -72,6 +85,16 @@ public class Lemming
 	{
 		visitor.visit(lemming);
 		
+	}
+
+	public boolean isFalling()
+	{
+		return isFalling;
+	}
+
+	public void setFalling(boolean isFalling)
+	{
+		this.isFalling = isFalling;
 	}
 
 
