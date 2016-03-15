@@ -7,7 +7,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import controller.GameManager;
-import model.Skill;
 
 public class ButtonPanel extends JPanel
 {
@@ -38,56 +37,56 @@ public class ButtonPanel extends JPanel
 		{
 			public void actionPerformed(ActionEvent ae)
 			{
-				manager.setSkill(Skill.DIGGER);
+				manager.setBehaviour("Digger");
 			}
 		});
 		exploder.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent ae)
 			{
-				manager.setSkill(Skill.EXPLODER);
+				manager.setBehaviour("Exploder");
 			}
-		});
+		});	
 		floater.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent ae)
 			{
-				manager.setSkill(Skill.FLOATER);
+				manager.setBehaviour("Floater");
 			}
 		});
 		miner.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent ae)
 			{
-				manager.setSkill(Skill.MINER);
+				manager.setBehaviour("Miner");
 			}
 		});
 		blocker.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent ae)
 			{
-				manager.setSkill(Skill.BLOCKER);
+				manager.setBehaviour("Blocker");
 			}
 		});
 		climber.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent ae)
 			{
-				manager.setSkill(Skill.CLIMBER);
+				manager.setBehaviour("Climber");
 			}
 		});
 		builder.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent ae)
 			{
-				manager.setSkill(Skill.BUILDER);
+				manager.setBehaviour("Builder");
 			}
 		});
 		basher.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent ae)
 			{
-				manager.setSkill(Skill.BASHER);
+				manager.setBehaviour("Basher");
 			}
 		});
 		paus.addActionListener(new ActionListener()

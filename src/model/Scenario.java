@@ -7,7 +7,7 @@ import shapes.TerrainList;
 
 public interface Scenario
 {
-	public List<Skill> getSkills();
+	public List<String> getSkills();
 	
 	public int getLemmings();
 	

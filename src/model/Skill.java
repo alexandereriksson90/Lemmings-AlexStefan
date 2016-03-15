@@ -1,6 +1,0 @@
-package model;
-
-public enum Skill
-{
-	FLOATER,DIGGER,EXPLODER,BLOCKER,MINER,CLIMBER,BUILDER,BASHER;
-}

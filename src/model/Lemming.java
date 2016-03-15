@@ -7,24 +7,25 @@ import shapes.Triangle;
 
 public class Lemming
 {
-	private Skill skill = null;
+	private String skill = null;
 	private Triangle lemming;
-	
+
 	public static int LEFT = -1;
 	public static int STOP = 0;
 	public static int RIGHT = 1;
-	
+
 	private int direction;
-	
+
 	private Behaviour behaviour;
 	private boolean isFalling;
-	
+
 	public Lemming(Point p)
 	{
 		lemming = new Triangle(30.0, p);
 		direction = RIGHT;
+		isFalling = true;
 	}
-	
+
 	public Behaviour getBehaviour()
 	{
 		return behaviour;
@@ -35,38 +36,48 @@ public class Lemming
 		this.behaviour = behaviour;
 	}
 
-	
 	public Point getPosition()
 	{
 		return lemming.getPosition();
 	}
-	
+
 	public void removeSkill()
 	{
 		skill = null;
 	}
-	
-	public void move(int dx, int dy)
+
+	public void move()
 	{
-		lemming.setPosition(lemming.getPosition().getXint()+dx,lemming.getPosition().getYint()+dy);
+		if (!isFalling && direction == RIGHT)
+			lemming.setPosition(lemming.getPosition().getXint() + 1, lemming.getPosition().getYint());
+		else if (!isFalling && direction == LEFT)
+		{
+			lemming.setPosition(lemming.getPosition().getXint() - 1, lemming.getPosition().getYint());
+		} else if (isFalling)
+		{
+			lemming.setPosition(lemming.getPosition().getXint(), lemming.getPosition().getYint() + 1);
+		}
 	}
-	
-	public void setSkill(Skill skill)
+
+	public void setSkill(String skill)
 	{
 		this.skill = skill;
 	}
-	
+
 	public void setDirection(int direction)
 	{
 		this.direction = direction;
 	}
-	
-	public void changeDirection()
+
+	public void changeDirection(boolean shouldTurn)
 	{
-		setDirection(getDirection() * -1);
+		if (shouldTurn)
+		{
+			setDirection(getDirection() * -1);
+		}
 	}
-	
-	public Skill getSkill()
+
+	public String getSkill()
 	{
 		return skill;
 	}
@@ -76,15 +87,21 @@ public class Lemming
 		return 30;
 	}
 
+	public int getHeight()
+	{
+		int height = (int) (Math.sqrt(Math.pow(getWidth(), 2) - Math.pow((getWidth() / 2), 2)) + 0.5);
+		return height;
+	}
+
 	public int getDirection()
-	{	
+	{
 		return direction;
 	}
 
 	public void accept(ShapePainterVisitor visitor)
 	{
 		visitor.visit(lemming);
-		
+
 	}
 
 	public boolean isFalling()
@@ -96,6 +113,5 @@ public class Lemming
 	{
 		this.isFalling = isFalling;
 	}
-
 
 }

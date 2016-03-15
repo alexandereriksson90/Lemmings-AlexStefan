@@ -10,8 +10,8 @@ public class Triangle extends TerrainUnit
 		this.sideLength = sideLength;
 		height = Math.sqrt(Math.pow(sideLength, 2) - Math.pow(sideLength/2,2));
 		
-		line1 = new Line(p, new Point(p.getX()+ (sideLength/2), p.getY()+height));
-		line2 = new Line(new Point(p.getX()+ (sideLength/2), p.getY()+height), new Point(p.getX()+ sideLength, p.getY()));
+		line1 = new Line(p, new Point(p.getX()+ (sideLength/2), p.getY()-height));
+		line2 = new Line(new Point(p.getX()+ (sideLength/2), p.getY()-height), new Point(p.getX()+ sideLength, p.getY()));
 		line3 = new Line(p, new Point(p.getX()+ sideLength, p.getY()));
 		
 		

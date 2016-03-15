@@ -3,8 +3,13 @@ package model;
 import java.util.Observable;
 import java.util.Observer;
 
+import factories.BehaviourFactory;
+import shapes.Ground;
+import shapes.Line;
 import shapes.Point;
 import shapes.TerrainList;
+import shapes.TerrainUnit;
+import shapes.Wall;
 
 public class GameBoard extends Observable
 {
@@ -17,14 +22,9 @@ public class GameBoard extends Observable
 	public GameBoard(Scenario scenario)
 	{
 		this.scenario = scenario;
-		setUpGameBoard();
+		
 	}
 
-	private void setUpGameBoard()
-	{
-		releaseLemmings();
-
-	}
 
 	public void addObserver(Observer observer)
 	{
@@ -46,25 +46,28 @@ public class GameBoard extends Observable
 	public void start()
 	{
 		releaseLemmings();
-		moveLemmings();
-	}
+		while(true)
+		{
+			moveLemmings();
+			
+		}
+		
 	
-	public void setLemmingSkill(Skill skill, Lemming lemming)
-	{
-		lemming.setSkill(skill);
+	
 	}
 
-	private synchronized void moveLemmings()
+	public void setLemmingBehaviour(String behaviour, Lemming lemming)
+	{
+		lemming.setBehaviour(BehaviourFactory.getInstance(behaviour));
+	}
+
+	private void moveLemmings()
 	{
 		for (Lemming l : lemmingList)
 		{
-			if (l.getDirection() != 0 && isCollisionFree(l) && !shouldFall(l))
-			{
-				l.move(1, 0);
-			} else
-			{
-
-			}
+			l.setFalling(shouldFall(l));
+			l.changeDirection(shouldTurn(l));
+			l.move();	
 		}
 		notifyObservers();
 
@@ -72,42 +75,54 @@ public class GameBoard extends Observable
 
 	public boolean shouldFall(Lemming l)
 	{
-		// if(kollision i Y-led)
-		//		return true;
+
+		for (TerrainUnit s : scenario.getTerrain())
+		{
+			if (s instanceof Ground)
+			{
+				if (!l.getPosition().between(((Ground) s).getP1(), ((Ground) s).getP2()))
+				{
+
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 
-	public boolean isCollisionFree(Lemming l)
+	public boolean shouldTurn(Lemming l)
 	{
-		if (l.getDirection() == 1)
+		for (TerrainUnit s : scenario.getTerrain())
 		{
-			if (getObstaclePosition(l).getX() - l.getPosition().getX() <= l.getWidth())
+			if (s instanceof Wall)
 			{
-				return false;
-			} else
-			{
-				return true;
+
+				if (l.getDirection() == 1)
+				{
+					Point temp = new Point(l.getPosition().getXint() + l.getWidth() + 1, l.getPosition().getYint());
+					if (temp.between(((Wall) s).getP1(), ((Wall) s).getP2()))
+						return true;
+				}
+
+				else if (l.getDirection() == -1)
+				{
+					Point temp = new Point(l.getPosition().getXint() - 1, l.getPosition().getYint());
+					if (temp.between(((Wall) s).getP1(), ((Wall) s).getP2()))
+						return true;
+
+				} else
+				{
+					return false;
+				}
+
 			}
-		} else
-		{
-			if (l.getPosition().getX() - getObstaclePosition(l).getX() <= l.getWidth())
-			{
-				return false;
-			} else
-			{
-				return true;
-			}
+
 		}
+		return false;
 
 	}
 
-	private Point getObstaclePosition(Lemming l)
-	{
-
-		return null;
-	}
-
-	private synchronized void releaseLemmings()
+	private void releaseLemmings()
 	{
 		for (int i = 0; i < scenario.getLemmings(); i++)
 		{
@@ -147,8 +162,8 @@ public class GameBoard extends Observable
 		} else
 		{
 			paused = false;
-			//starta igen
-			
+			// starta igen
+
 		}
 
 	}

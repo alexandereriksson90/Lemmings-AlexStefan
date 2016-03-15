@@ -1,6 +1,10 @@
-package model;
+package behaviours;
 
-public class DefaultBehaviour implements Behaviour
+import model.Behaviour;
+import model.GameBoard;
+import model.Lemming;
+
+public abstract class DefaultBehaviour implements Behaviour
 {
 	private Lemming lemming;
 	private GameBoard model;
@@ -25,17 +29,9 @@ public class DefaultBehaviour implements Behaviour
 	}
 
 	@Override
-	public String getName()
-	{
-		return null;
-	}
+	abstract public String getName();
 	
-	public void fall()
-	{
-		while(model.shouldFall(lemming))
-		{
-			lemming.move(0, 1);
-		}
-	}
+	
+	
 
 }
