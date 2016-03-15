@@ -56,6 +56,7 @@ public class Lemming
 		} else if (isFalling)
 		{
 			lemming.setPosition(lemming.getPosition().getXint(), lemming.getPosition().getYint() + 1);
+			
 		}
 	}
 

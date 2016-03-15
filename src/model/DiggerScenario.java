@@ -13,7 +13,7 @@ import shapes.Wall;
 public class DiggerScenario implements Scenario
 {
 	private final int lemmingsRequired = 2;
-	private final int nbrOfLemmings = 1;
+	private final int nbrOfLemmings = 5;
 	private List<String> allowedSkills = new ArrayList<String>();
 	private TerrainList terrain = new TerrainList();
 	private final Point startPosition, homePosition;

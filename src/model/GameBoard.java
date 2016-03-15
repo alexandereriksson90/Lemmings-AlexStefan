@@ -14,17 +14,22 @@ import shapes.Wall;
 public class GameBoard extends Observable
 {
 	private boolean paused = false;
-	private int delayTime = 3000;
+	private int releaseDelay = 3000;
+	private int moveDelay = 10;
 	private LemmingList lemmingList = new LemmingList();
 	private Scenario scenario;
 	private int savedLemmings = 0;
+	private int lemmingsOut = 0;
+	private int nbr;
+	
+	ReleaseThread releaseThread = new ReleaseThread();
+	MoveThread moveThread = new MoveThread();
 
 	public GameBoard(Scenario scenario)
 	{
 		this.scenario = scenario;
-		
+		nbr = scenario.getLemmings();
 	}
-
 
 	public void addObserver(Observer observer)
 	{
@@ -45,21 +50,20 @@ public class GameBoard extends Observable
 
 	public void start()
 	{
-		releaseLemmings();
-		while(true)
-		{
-			moveLemmings();
-			
-		}
-		
-	
-	
+		// if(paused)
+		releaseThread.start();
+		moveThread.start();
+
 	}
+
+	
 
 	public void setLemmingBehaviour(String behaviour, Lemming lemming)
 	{
 		lemming.setBehaviour(BehaviourFactory.getInstance(behaviour));
 	}
+
+	
 
 	private void moveLemmings()
 	{
@@ -67,8 +71,9 @@ public class GameBoard extends Observable
 		{
 			l.setFalling(shouldFall(l));
 			l.changeDirection(shouldTurn(l));
-			l.move();	
+			l.move();
 		}
+		setChanged();
 		notifyObservers();
 
 	}
@@ -80,14 +85,15 @@ public class GameBoard extends Observable
 		{
 			if (s instanceof Ground)
 			{
-				if (!l.getPosition().between(((Ground) s).getP1(), ((Ground) s).getP2()))
+
+				if (l.getPosition().between(((Ground) s).getP1(), ((Ground) s).getP2()))
 				{
 
-					return true;
+					return false;
 				}
 			}
 		}
-		return false;
+		return true;
 	}
 
 	public boolean shouldTurn(Lemming l)
@@ -124,11 +130,17 @@ public class GameBoard extends Observable
 
 	private void releaseLemmings()
 	{
-		for (int i = 0; i < scenario.getLemmings(); i++)
+		System.out.println("lemmings out: "+lemmingsOut);
+		System.out.println("scenario lemmings: "+nbr);
+		if(lemmingsOut < nbr)
 		{
 			lemmingList.add(new Lemming(scenario.getStartPosition()));
-			simulateTime();
-
+			lemmingsOut++;
+			
+		}
+		else
+		{
+			releaseThread.interrupt();
 		}
 
 	}
@@ -143,28 +155,78 @@ public class GameBoard extends Observable
 		return savedLemmings;
 	}
 
-	private void simulateTime()
-	{
-		try
-		{
-			Thread.sleep(delayTime);
-		} catch (Exception e)
-		{
-		}
-	}
-
 	public void pause()
 	{
 		if (!paused)
 		{
 			paused = true;
-			// pausa
+
 		} else
 		{
 			paused = false;
-			// starta igen
 
 		}
 
 	}
+	
+	private class ReleaseThread extends Thread implements Runnable
+	{
+		Thread t;
+
+		ReleaseThread()
+		{
+			super();
+			t = new Thread(this);
+			t.start();
+		}
+
+		public void run()
+		{
+			
+			while (!paused)
+			{
+				releaseLemmings();
+				
+				try
+				{
+					Thread.sleep(releaseDelay);
+				} catch (InterruptedException e)
+				{
+					
+				}
+			}
+		}
+
+	}
+	
+	private class MoveThread extends Thread implements Runnable
+	{
+		Thread t;
+
+		MoveThread()
+		{
+			super();
+			t = new Thread(this);
+			t.start();
+		}
+
+		public void run()
+		{
+			
+			while (!paused)
+			{
+				moveLemmings();
+				
+				try
+				{
+					Thread.sleep(moveDelay);
+				} catch (InterruptedException e)
+				{
+					
+				}
+			}
+		}
+
+	}
+
 }
