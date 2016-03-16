@@ -5,7 +5,7 @@ import java.util.Observer;
 
 import factories.BehaviourFactory;
 import shapes.Ground;
-import shapes.Line;
+import shapes.Hole;
 import shapes.Point;
 import shapes.TerrainList;
 import shapes.TerrainUnit;
@@ -20,15 +20,15 @@ public class GameBoard extends Observable
 	private Scenario scenario;
 	private int savedLemmings = 0;
 	private int lemmingsOut = 0;
-	private int nbr;
-	
-	ReleaseThread releaseThread = new ReleaseThread();
-	MoveThread moveThread = new MoveThread();
+	private String chosenBehaviour = null;
+
+	ReleaseThread releaseThread;
+	MoveThread moveThread;
 
 	public GameBoard(Scenario scenario)
 	{
 		this.scenario = scenario;
-		nbr = scenario.getLemmings();
+
 	}
 
 	public void addObserver(Observer observer)
@@ -50,20 +50,22 @@ public class GameBoard extends Observable
 
 	public void start()
 	{
-		// if(paused)
+
+		releaseThread = new ReleaseThread();
+		moveThread = new MoveThread();
+
 		releaseThread.start();
 		moveThread.start();
 
 	}
 
-	
-
-	public void setLemmingBehaviour(String behaviour, Lemming lemming)
+	private void setLemmingBehaviour(String behaviour, Lemming lemming)
 	{
-		lemming.setBehaviour(BehaviourFactory.getInstance(behaviour));
+		Behaviour b = BehaviourFactory.getInstance(behaviour);
+		b.setLemming(lemming);
+		b.setModel(this);
+		lemming.setBehaviour(b);
 	}
-
-	
 
 	private void moveLemmings()
 	{
@@ -83,12 +85,12 @@ public class GameBoard extends Observable
 
 		for (TerrainUnit s : scenario.getTerrain())
 		{
+
 			if (s instanceof Ground)
 			{
-
-				if (l.getPosition().between(((Ground) s).getP1(), ((Ground) s).getP2()))
+				if (l.getPosition().between(((Ground) s).getP1(),
+						((Ground) s).getP3()))
 				{
-
 					return false;
 				}
 			}
@@ -105,15 +107,17 @@ public class GameBoard extends Observable
 
 				if (l.getDirection() == 1)
 				{
-					Point temp = new Point(l.getPosition().getXint() + l.getWidth() + 1, l.getPosition().getYint());
-					if (temp.between(((Wall) s).getP1(), ((Wall) s).getP2()))
+					Point temp = new Point(l.getPosition().getXint()
+							+ l.getWidth() + 1, l.getPosition().getYint());
+					if (temp.between(((Wall) s).getP1(), ((Wall) s).getP4()))
 						return true;
 				}
 
 				else if (l.getDirection() == -1)
 				{
-					Point temp = new Point(l.getPosition().getXint() - 1, l.getPosition().getYint());
-					if (temp.between(((Wall) s).getP1(), ((Wall) s).getP2()))
+					Point temp = new Point(l.getPosition().getXint() - 1, l
+							.getPosition().getYint());
+					if (temp.between(((Wall) s).getP3(), ((Wall) s).getP2()))
 						return true;
 
 				} else
@@ -130,15 +134,13 @@ public class GameBoard extends Observable
 
 	private void releaseLemmings()
 	{
-		System.out.println("lemmings out: "+lemmingsOut);
-		System.out.println("scenario lemmings: "+nbr);
-		if(lemmingsOut < nbr)
+
+		if (lemmingsOut < scenario.getLemmings())
 		{
 			lemmingList.add(new Lemming(scenario.getStartPosition()));
 			lemmingsOut++;
-			
-		}
-		else
+
+		} else
 		{
 			releaseThread.interrupt();
 		}
@@ -160,16 +162,19 @@ public class GameBoard extends Observable
 		if (!paused)
 		{
 			paused = true;
+			releaseThread.interrupt();
+			moveThread.interrupt();
 
 		} else
 		{
 			paused = false;
+			start();
 
 		}
 
 	}
-	
-	private class ReleaseThread extends Thread implements Runnable
+
+	private class ReleaseThread implements Runnable
 	{
 		Thread t;
 
@@ -177,29 +182,39 @@ public class GameBoard extends Observable
 		{
 			super();
 			t = new Thread(this);
+
+		}
+
+		public void start()
+		{
 			t.start();
 		}
 
 		public void run()
 		{
-			
+
 			while (!paused)
 			{
 				releaseLemmings();
-				
+
 				try
 				{
 					Thread.sleep(releaseDelay);
 				} catch (InterruptedException e)
 				{
-					
+
 				}
 			}
 		}
 
+		public void interrupt()
+		{
+			t.interrupt();
+		}
+
 	}
-	
-	private class MoveThread extends Thread implements Runnable
+
+	private class MoveThread implements Runnable
 	{
 		Thread t;
 
@@ -207,25 +222,64 @@ public class GameBoard extends Observable
 		{
 			super();
 			t = new Thread(this);
+
+		}
+
+		public void start()
+		{
 			t.start();
+
 		}
 
 		public void run()
 		{
-			
+
 			while (!paused)
 			{
 				moveLemmings();
-				
+
 				try
 				{
 					Thread.sleep(moveDelay);
 				} catch (InterruptedException e)
 				{
-					
+
 				}
 			}
 		}
+
+		public void interrupt()
+		{
+			t.interrupt();
+		}
+
+	}
+
+	public void checkIfLemming(int x, int y)
+	{
+		Point temp = new Point(x, y);
+		for (Lemming l : lemmingList)
+		{
+			if (l.checkIfInBounds(temp))
+			{
+
+				if (chosenBehaviour != null)
+				{
+					setLemmingBehaviour(chosenBehaviour, l);
+				}
+			}
+		}
+
+	}
+
+	public void setBehaviour(String behaviour)
+	{
+		chosenBehaviour = behaviour;
+
+	}
+
+	public void destroy(Point position)
+	{
 
 	}
 

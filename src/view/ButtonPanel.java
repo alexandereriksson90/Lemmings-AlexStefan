@@ -100,7 +100,7 @@ public class ButtonPanel extends JPanel
 		{
 			public void actionPerformed(ActionEvent ae)
 			{
-
+				manager.end();
 			}
 		});
 		

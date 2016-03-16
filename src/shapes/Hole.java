@@ -1,9 +1,9 @@
 package shapes;
 
-public class Ground extends Rectangle
+public class Hole extends Rectangle
 {
 
-	public Ground(Point p1, Point p2)
+	public Hole(Point p1, Point p2)
 	{
 		super(p1, p2);
 	}

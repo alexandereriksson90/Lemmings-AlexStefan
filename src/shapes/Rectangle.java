@@ -27,6 +27,7 @@ public class Rectangle extends TerrainUnit
     return p2;
     }
 
+
   public void setP2(Point p2)
     {
     this.p2 = p2;
@@ -52,9 +53,11 @@ public class Rectangle extends TerrainUnit
       }
     super.setPosition(p);
     }
+  
+
 
   @Override
-  public void accept(ShapeVisitor visitor)
+  public void accept(TerrainVisitor visitor)
     {
     visitor.visit(this);
     }

@@ -47,6 +47,6 @@ public abstract class TerrainUnit implements Cloneable
 	
 	
 
-	public abstract void accept(ShapeVisitor visitor);
+	public abstract void accept(TerrainVisitor visitor);
 
 }

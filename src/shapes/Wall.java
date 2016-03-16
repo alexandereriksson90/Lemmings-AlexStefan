@@ -1,12 +1,27 @@
 package shapes;
 
-public class Wall extends Line
+public class Wall extends Rectangle
 {
 
-	public Wall(double x1, double y1, double x2, double y2)
+	public Wall(Point p1, Point p2)
 	{
-		super(x1, y1, x2, y2);
-		// TODO Auto-generated constructor stub
+		super(p1, p2);
+	}
+
+	@Override
+	public void accept(TerrainVisitor visitor)
+	{
+		visitor.visit(this);
+	}
+
+	public Point getP3()
+	{
+		return new Point(getP2().getXint(), getP1().getYint());
+	}
+	
+	public Point getP4()
+	{
+		return new Point(getP1().getXint(), getP2().getYint());
 	}
 
 }

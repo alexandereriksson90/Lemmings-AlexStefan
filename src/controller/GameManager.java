@@ -5,13 +5,12 @@ import java.util.Observer;
 import model.GameBoard;
 import model.Lemming;
 import shapes.TerrainUnit;
-import shapes.ShapePainterVisitor;
-import shapes.ShapeVisitor;
+import shapes.TerrainPainterVisitor;
+import shapes.TerrainVisitor;
 
 public class GameManager
 {
 
-	private String chosenBehaviour;
 	private GameBoard model;
 
 	public GameManager(GameBoard model)
@@ -28,19 +27,14 @@ public class GameManager
 
 	public void setBehaviour(String behaviour)
 	{
-		chosenBehaviour = behaviour;
+		model.setBehaviour(behaviour);
 	}
 
-	public void addTerrain(ShapeVisitor visitor)
+	public void addTerrain(TerrainVisitor visitor)
 	{
 		for (TerrainUnit shape : model.getTerrain())
 			shape.accept(visitor);
 
-	}
-
-	public void addBehaviourToLemming(Lemming lemming)
-	{
-		model.setLemmingBehaviour(chosenBehaviour, lemming);
 	}
 
 	public void start()
@@ -58,11 +52,25 @@ public class GameManager
 		return model.getSavedLemmings();
 	}
 
-	public void addLemmings(ShapePainterVisitor visitor)
+	public void addLemmings(TerrainPainterVisitor visitor)
 	{
 		for (Lemming shape : model.getLemmings())
 			shape.accept(visitor);
 
 	}
+
+	public void end() 
+	{
+	
+		
+	}
+
+	public void checkIfLemming(int x, int y) 
+	{
+		model.checkIfLemming(x,y);
+		
+	}
+
+
 
 }

@@ -2,7 +2,7 @@ package model;
 
 import shapes.Point;
 import shapes.TerrainUnit;
-import shapes.ShapePainterVisitor;
+import shapes.TerrainPainterVisitor;
 import shapes.Triangle;
 
 public class Lemming
@@ -48,16 +48,21 @@ public class Lemming
 
 	public void move()
 	{
-		if (!isFalling && direction == RIGHT)
+		if (!isFalling && direction == RIGHT && behaviour == null)
 			lemming.setPosition(lemming.getPosition().getXint() + 1, lemming.getPosition().getYint());
-		else if (!isFalling && direction == LEFT)
+		else if (!isFalling && direction == LEFT && behaviour == null)
 		{
 			lemming.setPosition(lemming.getPosition().getXint() - 1, lemming.getPosition().getYint());
-		} else if (isFalling)
+		} else if (isFalling && behaviour == null)
 		{
 			lemming.setPosition(lemming.getPosition().getXint(), lemming.getPosition().getYint() + 1);
 			
+		}else if (behaviour != null)
+		{
+			behaviour.execute();
+			
 		}
+		
 	}
 
 	public void setSkill(String skill)
@@ -99,7 +104,7 @@ public class Lemming
 		return direction;
 	}
 
-	public void accept(ShapePainterVisitor visitor)
+	public void accept(TerrainPainterVisitor visitor)
 	{
 		visitor.visit(lemming);
 
@@ -113,6 +118,12 @@ public class Lemming
 	public void setFalling(boolean isFalling)
 	{
 		this.isFalling = isFalling;
+	}
+
+	public boolean checkIfInBounds(Point temp)
+	{
+		return lemming.isWithinBounds(temp);
+		
 	}
 
 }

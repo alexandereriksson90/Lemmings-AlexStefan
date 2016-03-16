@@ -61,7 +61,7 @@ public class Line extends TerrainUnit
     }
 
   @Override
-  public void accept(ShapeVisitor visitor)
+  public void accept(TerrainVisitor visitor)
     {
     visitor.visit(this);
     }

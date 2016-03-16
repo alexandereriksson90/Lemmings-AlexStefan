@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import shapes.Entrance;
+import shapes.Exit;
 import shapes.Ground;
 import shapes.Line;
 import shapes.Point;
@@ -20,7 +22,7 @@ public class DiggerScenario implements Scenario
 	
 	public DiggerScenario()
 	{
-		startPosition = new Point(100,50);
+		startPosition = new Point(100,80);
 		homePosition = new Point(1000,350);
 		allowedSkills.add("Digger");
 		addTerrain();
@@ -65,16 +67,16 @@ public class DiggerScenario implements Scenario
 	
 	private void addTerrain()
 	{
-		terrain.add(new Rectangle(new Point(100,50),new Point(140,90)));
-		terrain.add(new Rectangle(new Point(960,310),new Point(1000,350)));
+		terrain.add(new Entrance(new Point(100,50),new Point(140,90)));
+		terrain.add(new Exit(new Point(960,310),new Point(1000,350)));
 		
-		terrain.add(new Wall(50,50,50,350));
-		terrain.add(new Ground(250,250,600,250));
-		terrain.add(new Ground(50,150,700,150));
-		terrain.add(new Wall(700,10,700,150));
+		terrain.add(new Wall(new Point(20,50),new Point(50,380)));
+		terrain.add(new Wall(new Point(700,50),new Point(730,280)));
 		
+		terrain.add(new Ground(new Point(250,250),new Point(600,280)));
+		terrain.add(new Ground(new Point(50,150),new Point(700,180)));
+		terrain.add(new Ground(new Point(50,350),new Point(1200,380)));
 		
-		terrain.add(new Ground(50,350,1200,350));
 		
 	}
 }
