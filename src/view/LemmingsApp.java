@@ -18,7 +18,7 @@ public class LemmingsApp extends JFrame
 	private GameManager manager = new GameManager(gameBoard);
 	private GameBoardPanel gamePanel = new GameBoardPanel(manager);
 	private ButtonPanel skillPanel = new ButtonPanel(manager);
-	private StatusPanel statusPanel = new StatusPanel();
+	private StatusPanel statusPanel = new StatusPanel(manager);
 	private Container c;
 	StatusThread status = new StatusThread();
 
@@ -46,8 +46,16 @@ public class LemmingsApp extends JFrame
 	
 	private void gameFinished()
 	{
-		
-		JOptionPane.showMessageDialog (null, "Congratulations you have won!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
+		String message =
+		null;
+		if(manager.hasWon()) 
+		{
+			message = "Congratulations you have won!";
+		} else if(manager.hasLost())
+		{
+			message = "Too bad man you have lost!";
+		}
+		JOptionPane.showMessageDialog (null, message , "Game Over", JOptionPane.INFORMATION_MESSAGE);
 		status.interrupt();
 		
 	}

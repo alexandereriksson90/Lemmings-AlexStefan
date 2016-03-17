@@ -32,9 +32,16 @@ public class GameManager
 
 	public void addTerrain(TerrainVisitor visitor)
 	{
+		synchronized(model.getTerrain())
+		{
 		for (TerrainUnit shape : model.getTerrain())
 			shape.accept(visitor);
-
+		}
+	}
+	
+	public int getLemmingsOut()
+	{
+		return model.getLemmingsOut();
 	}
 	
 	public boolean hasWon()
@@ -55,6 +62,11 @@ public class GameManager
 	public void pause()
 	{
 		model.pause();
+	}
+	
+	public int getRequiredLemmings()
+	{
+		return model.getRequiredLemmings();
 	}
 
 	public int getSavedLemmings()

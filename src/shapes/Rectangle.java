@@ -61,6 +61,11 @@ public class Rectangle extends TerrainUnit
     {
     visitor.visit(this);
     }
+  
+  public String toString()
+  {
+	  return "p1: "+p1.toString()+ "p2: " +p2.toString();
+  }
 
   }
 

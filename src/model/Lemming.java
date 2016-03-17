@@ -62,6 +62,7 @@ public class Lemming
 			behaviour.execute();
 			lemming.setPosition(lemming.getPosition().getXint(), lemming.getPosition().getYint() + 1);
 			
+			
 		}
 		
 	}

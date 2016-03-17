@@ -14,6 +14,7 @@ public class ObservableList<TYPE> extends Observable implements Iterable<TYPE>
     list.add(o);
     setChanged();
     notifyObservers();
+    
     }
   
   public void addFirst(TYPE o)
