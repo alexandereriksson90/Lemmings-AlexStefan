@@ -36,6 +36,16 @@ public class GameManager
 			shape.accept(visitor);
 
 	}
+	
+	public boolean hasWon()
+	{
+		return model.hasWon();
+	}
+	
+	public boolean hasLost()
+	{
+		return model.hasLost();
+	}
 
 	public void start()
 	{
@@ -61,7 +71,7 @@ public class GameManager
 
 	public void end() 
 	{
-	
+		
 		
 	}
 

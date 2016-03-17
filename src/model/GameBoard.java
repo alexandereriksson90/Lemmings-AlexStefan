@@ -14,13 +14,15 @@ import shapes.Wall;
 public class GameBoard extends Observable
 {
 	private boolean paused = false;
+	private boolean gameWon = false;
 	private int releaseDelay = 3000;
-	private int moveDelay = 10;
+	private int moveDelay = 5;
 	private LemmingList lemmingList = new LemmingList();
 	private Scenario scenario;
 	private int savedLemmings = 0;
 	private int lemmingsOut = 0;
 	private String chosenBehaviour = null;
+	private int killedLemmings = 0;
 
 	ReleaseThread releaseThread;
 	MoveThread moveThread;
@@ -41,11 +43,6 @@ public class GameBoard extends Observable
 	public LemmingList getLemmings()
 	{
 		return lemmingList;
-	}
-
-	public void onLemmingSaved()
-	{
-		savedLemmings++;
 	}
 
 	public void start()
@@ -69,14 +66,67 @@ public class GameBoard extends Observable
 
 	private void moveLemmings()
 	{
-		for (Lemming l : lemmingList)
+
+		for (int i = 0; i < lemmingList.size(); i++)
 		{
-			l.setFalling(shouldFall(l));
-			l.changeDirection(shouldTurn(l));
-			l.move();
+			shouldKillLemming(scenario.isLemmingOutOfMap(lemmingList.get(i)), lemmingList.get(i));
+			lemmingList.get(i).setFalling(shouldFall(lemmingList.get(i)));
+			lemmingList.get(i).changeDirection(shouldTurn(lemmingList.get(i)));
+			lemmingList.get(i).move();
+			isAtExit(lemmingList.get(i));
 		}
+
+		if (lemmingList.size() == 0
+				&& savedLemmings >= scenario.getLemmingsRequired())
+		{
+			gameWon();
+
+			return;
+		} else if (savedLemmings < scenario.getLemmingsRequired()
+				&& killedLemmings > scenario.getLemmings() - scenario.getLemmingsRequired())
+		{
+			System.out.println("förlust");
+		}
+
 		setChanged();
 		notifyObservers();
+
+	}
+
+	private void shouldKillLemming(boolean lemmingOutOfMap, Lemming lemming)
+	{
+		if(lemmingOutOfMap == true)
+		{
+			System.out.println("död");
+			lemmingList.remove(lemming);
+			killedLemmings++;
+		}
+		
+	}
+
+	public boolean hasWon()
+	{
+		return gameWon;
+	}
+
+	public void gameWon()
+	{
+		releaseThread.interrupt();
+		moveThread.interrupt();
+		gameWon = true;
+
+	}
+
+	private void isAtExit(Lemming l)
+	{
+		if (l.getPosition().getXint() == scenario.getHomePosition().getXint()
+				&& l.getPosition().getYint() == scenario.getHomePosition()
+						.getYint())
+		{
+			lemmingList.remove(l);
+			savedLemmings++;
+			System.out.println("lemming go home");
+		}
 
 	}
 
@@ -86,9 +136,17 @@ public class GameBoard extends Observable
 		for (TerrainUnit s : scenario.getTerrain())
 		{
 
-			if (s instanceof Ground)
+			if (s instanceof Ground && l.getDirection() == 1)
 			{
 				if (l.getPosition().between(((Ground) s).getP1(),
+						((Ground) s).getP3()))
+				{
+					return false;
+				}
+			} else if (s instanceof Ground && l.getDirection() == -1)
+			{
+				if (new Point(l.getPosition().getXint() + 30, l.getPosition()
+						.getYint()).between(((Ground) s).getP1(),
 						((Ground) s).getP3()))
 				{
 					return false;
@@ -193,7 +251,7 @@ public class GameBoard extends Observable
 		public void run()
 		{
 
-			while (!paused)
+			while (!paused && !gameWon)
 			{
 				releaseLemmings();
 
@@ -234,7 +292,7 @@ public class GameBoard extends Observable
 		public void run()
 		{
 
-			while (!paused)
+			while (!paused && !gameWon)
 			{
 				moveLemmings();
 
@@ -281,6 +339,12 @@ public class GameBoard extends Observable
 	public void destroy(Point position)
 	{
 
+	}
+
+	public boolean hasLost()
+	{
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

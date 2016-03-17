@@ -42,7 +42,7 @@ public class GameBoardPanel extends JPanel implements Observer
 		TerrainPainterVisitor painter = new TerrainPainterVisitor(g);
 		mediator.addTerrain(painter);
 		mediator.addLemmings(painter);
-
+		
 	}
 	
 	public void addMouseAdapter()

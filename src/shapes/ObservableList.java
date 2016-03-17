@@ -21,6 +21,7 @@ public class ObservableList<TYPE> extends Observable implements Iterable<TYPE>
 	  list.add(0, o);
 	  setChanged();
 	  notifyObservers();
+	 
   }
 
   public void remove(TYPE o)

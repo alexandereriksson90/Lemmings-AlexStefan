@@ -19,4 +19,6 @@ public interface Scenario
 	
 	public Point getHomePosition();
 
+	public boolean isLemmingOutOfMap(Lemming lemming);
+
 }

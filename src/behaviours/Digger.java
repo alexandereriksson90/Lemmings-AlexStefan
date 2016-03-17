@@ -13,9 +13,12 @@ public class Digger implements Behaviour
 	private Lemming lemming;
 	private GameBoard model;
 	private int executeCounter = 0;
-	private int digDistance = 5;
+	private int digDistance = 1;
 	private Ground digGround = null;
+	private Ground g = null;
+	private int x,y;
 
+	
 	@Override
 	public String getName()
 	{
@@ -38,10 +41,10 @@ public class Digger implements Behaviour
 	@Override
 	public void execute()
 	{
-		Ground g = null;
+		
 		for (TerrainUnit t : model.getTerrain())
 		{
-			if (t instanceof Ground)
+			if (t instanceof Ground && g == null)
 			{
 				if (lemming.getPosition().between(((Ground) t).getP1(),
 						((Ground) t).getP3()))
@@ -54,28 +57,34 @@ public class Digger implements Behaviour
 		{
 			model.getTerrain().remove(g);
 			model.getTerrain().add(
-					new Ground(g.getP1(), new Point(lemming.getPosition()
-							.getXint(), lemming.getPosition().getYint()
-							+ digDistance)));
+					new Ground(g.getP1(), new Point(x, y + 30)));
 			model.getTerrain().add(
-					new Ground(new Point(lemming.getPosition().getXint()
-							+ lemming.getWidth() + 5, lemming.getPosition()
-							.getYint()), g.getP2()));
-			digGround = new Ground(new Point(lemming.getPosition().getXint(),
-					lemming.getPosition().getY() + digDistance), new Point(
-					lemming.getPosition().getXint() + lemming.getWidth() + 5,
-					lemming.getPosition().getYint() + 30));
+					new Ground(new Point(x
+							+ lemming.getWidth() + 5, y), g.getP2()));
+			digGround = new Ground(new Point(x,
+					y + 200), new Point(
+					x + lemming.getWidth() + 15,
+					y + 150));
+			model.getTerrain().add(digGround);
+			executeCounter++;
+			
+		} else
+		{
+			
+			model.getTerrain().remove(digGround);
+//			digGround.setP1(new Point(digGround.getP1().getXint(), digGround
+//					.getP1().getYint() + digDistance));
+			
+			digGround = new Ground(new Point(x,
+					lemming.getPosition().getYint() + digDistance), new Point(
+					x + lemming.getWidth() + 5,
+					y + 30));
 			model.getTerrain().add(digGround);
 			executeCounter++;
 		}
-		else {
-//			model.getTerrain().remove(digGround);
-			
-			digGround.setP1(new Point(digGround.getP1().getXint(),digGround.getP1().getYint()+digDistance));
-			executeCounter++;
-		}
-		if(executeCounter == 6)
-		lemming.setBehaviour(null);
+		if (executeCounter == 30)
+			lemming.setBehaviour(null);
+			model.getTerrain().remove(digGround);
 
 	}
 
@@ -90,6 +99,8 @@ public class Digger implements Behaviour
 	public void setLemming(Lemming lemming)
 	{
 		this.lemming = lemming;
+		x = lemming.getPosition().getXint();
+		y = lemming.getPosition().getYint();
 
 	}
 

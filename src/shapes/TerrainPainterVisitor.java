@@ -98,16 +98,5 @@ public class TerrainPainterVisitor implements TerrainVisitor
 		
 	}
 
-	@Override
-	public void visit(Hole hole)
-	{
-		int x1 = (int) (hole.getP1().getX() + 0.5);
-		int x2 = (int) (hole.getP2().getX() + 0.5);
-		int y1 = (int) (hole.getP1().getY() + 0.5);
-		int y2 = (int) (hole.getP2().getY() + 0.5);
-		
-		graphics.setColor(Color.WHITE);
-		graphics.fillRect(x1, y1, x2 - x1, y2 - y1);	
-		
-	}
+	
 }

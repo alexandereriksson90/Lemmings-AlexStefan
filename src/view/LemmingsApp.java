@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.*;
+
 import javax.swing.*;
 
 import controller.GameManager;
@@ -19,6 +20,7 @@ public class LemmingsApp extends JFrame
 	private ButtonPanel skillPanel = new ButtonPanel(manager);
 	private StatusPanel statusPanel = new StatusPanel();
 	private Container c;
+	StatusThread status = new StatusThread();
 
 	public LemmingsApp()
 	{
@@ -34,10 +36,59 @@ public class LemmingsApp extends JFrame
 		setLocationRelativeTo(null);
 		setVisible(true);
 		manager.start();
+		status.start();
 	}
 
 	public static void main(String args[])
 	{
 		new LemmingsApp();
+	}
+	
+	private void gameFinished()
+	{
+		
+		JOptionPane.showMessageDialog (null, "Congratulations you have won!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
+		status.interrupt();
+		
+	}
+	
+	private class StatusThread implements Runnable
+	{
+		Thread t;
+
+		StatusThread()
+		{
+			super();
+			t = new Thread(this);
+
+		}
+
+		public void start()
+		{
+			t.start();
+		}
+
+		public void run()
+		{
+
+			while (!manager.hasWon() && !manager.hasLost())
+			{
+
+				try
+				{
+					Thread.sleep(100);
+				} catch (InterruptedException e)
+				{
+
+				}
+			}
+			gameFinished();
+		}
+
+		public void interrupt()
+		{
+			t.interrupt();
+		}
+
 	}
 }

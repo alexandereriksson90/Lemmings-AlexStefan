@@ -23,7 +23,7 @@ public class DiggerScenario implements Scenario
 	public DiggerScenario()
 	{
 		startPosition = new Point(100,80);
-		homePosition = new Point(1000,350);
+		homePosition = new Point(960,350);
 		allowedSkills.add("Digger");
 		addTerrain();
 	}
@@ -78,5 +78,11 @@ public class DiggerScenario implements Scenario
 		terrain.add(new Ground(new Point(50,350),new Point(1200,380)));
 		
 		
+	}
+
+	@Override
+	public boolean isLemmingOutOfMap(Lemming lemming)
+	{
+		return (lemming.getPosition().getYint() > 380 || lemming.getPosition().getXint() > 1200);
 	}
 }

@@ -16,7 +16,6 @@ public interface TerrainVisitor
   
   public void visit(Exit exit);
   
-  public void visit(Hole hole);
 
  
   }

@@ -60,6 +60,7 @@ public class Lemming
 		}else if (behaviour != null)
 		{
 			behaviour.execute();
+			lemming.setPosition(lemming.getPosition().getXint(), lemming.getPosition().getYint() + 1);
 			
 		}
 		
