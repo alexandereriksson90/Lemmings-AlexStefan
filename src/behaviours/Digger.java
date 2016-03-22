@@ -56,12 +56,14 @@ public class Digger implements Behaviour
 
 				model.getTerrain().remove(g);
 				model.getTerrain().add(new Ground(g.getP1(), new Point(x, y + 30)));
-				model.getTerrain().add(new Ground(new Point(x + lemming.getWidth() + 5, y), g.getP2()));
+				model.getTerrain().add(new Ground(new Point(x + lemming.getWidth(), y), g.getP2()));
 				model.getTerrain().add(new Ground(g.getP1(), new Point(x, y + 30)));
 
 				model.getTerrain().add(digGround = new Ground(new Point(x, y + digDistance),
-						new Point(x + lemming.getWidth() + 5, y + 30)));
+						new Point(x + lemming.getWidth(), y + 30)));
+				
 				executeCounter++;
+				lemming.fall();
 
 			} else
 			{
@@ -69,16 +71,19 @@ public class Digger implements Behaviour
 				model.getTerrain().remove(digGround);
 
 				digGround = new Ground(new Point(x, lemming.getPosition().getYint() + digDistance),
-						new Point(x + lemming.getWidth() + 5, y + 30));
-				System.out.println(digGround.toString());
+						new Point(x + lemming.getWidth(), y + 30));
+				
 				model.getTerrain().add(digGround);
 				executeCounter++;
+				lemming.fall();
 
 			}
 			if (executeCounter == 30)
 			{
 				lemming.setBehaviour(null);
 				model.getTerrain().remove(digGround);
+				
+				
 			}
 		}
 

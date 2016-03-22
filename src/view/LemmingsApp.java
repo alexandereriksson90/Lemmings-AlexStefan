@@ -5,6 +5,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import controller.GameManager;
+import model.BasherScenario;
 import model.DiggerScenario;
 import model.GameBoard;
 import model.Scenario;
@@ -14,7 +15,8 @@ public class LemmingsApp extends JFrame
 	private static final long serialVersionUID = 1L;
 	
 	private Scenario diggerScenario = new DiggerScenario();
-	private GameBoard gameBoard = new GameBoard(diggerScenario);
+	private Scenario basherScenario = new BasherScenario();
+	private GameBoard gameBoard = new GameBoard(basherScenario);
 	private GameManager manager = new GameManager(gameBoard);
 	private GameBoardPanel gamePanel = new GameBoardPanel(manager);
 	private ButtonPanel skillPanel = new ButtonPanel(manager);

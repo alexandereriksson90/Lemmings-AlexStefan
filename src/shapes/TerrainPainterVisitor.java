@@ -24,7 +24,8 @@ public class TerrainPainterVisitor implements TerrainVisitor
 		int x2 = (int) (rectangle.getP2().getX() + 0.5);
 		int y1 = (int) (rectangle.getP1().getY() + 0.5);
 		int y2 = (int) (rectangle.getP2().getY() + 0.5);
-		graphics.drawRect(x1, y1, x2 - x1, y2 - y1);
+		graphics.setColor(Color.GREEN);
+		graphics.fillRect(x1, y1, x2 - x1, y2 - y1);
 	}
 
 	@Override

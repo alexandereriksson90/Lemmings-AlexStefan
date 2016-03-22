@@ -5,7 +5,6 @@ import java.util.Observer;
 
 import factories.BehaviourFactory;
 import shapes.Ground;
-import shapes.Hole;
 import shapes.Point;
 import shapes.TerrainList;
 import shapes.TerrainUnit;

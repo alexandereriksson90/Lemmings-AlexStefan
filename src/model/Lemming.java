@@ -1,6 +1,7 @@
 package model;
 
 import shapes.Point;
+import shapes.Rectangle;
 import shapes.TerrainUnit;
 import shapes.TerrainPainterVisitor;
 import shapes.Triangle;
@@ -8,7 +9,7 @@ import shapes.Triangle;
 public class Lemming
 {
 	private String skill = null;
-	private Triangle lemming;
+	private Rectangle lemming;
 
 	public static int LEFT = -1;
 	public static int STOP = 0;
@@ -21,7 +22,7 @@ public class Lemming
 
 	public Lemming(Point p)
 	{
-		lemming = new Triangle(30.0, p);
+		lemming = new Rectangle(new Point(p.getXint()-15, p.getYint()-30), p);
 		direction = RIGHT;
 		isFalling = true;
 	}
@@ -38,7 +39,7 @@ public class Lemming
 
 	public Point getPosition()
 	{
-		return lemming.getPosition();
+		return lemming.getP3();
 	}
 
 	public void removeSkill()
@@ -60,11 +61,14 @@ public class Lemming
 		}else if (behaviour != null)
 		{
 			behaviour.execute();
-			lemming.setPosition(lemming.getPosition().getXint(), lemming.getPosition().getYint() + 1);
-			
 			
 		}
 		
+	}
+	
+	public void fall()
+	{
+		lemming.setPosition(lemming.getPosition().getXint(), lemming.getPosition().getYint() + 1);
 	}
 
 	public void setSkill(String skill)
@@ -92,7 +96,7 @@ public class Lemming
 
 	public int getWidth()
 	{
-		return 30;
+		return lemming.getP2().getXint() - lemming.getP1().getXint();
 	}
 
 	public int getHeight()
