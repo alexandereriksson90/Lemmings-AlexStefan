@@ -31,7 +31,7 @@ public class ButtonPanel extends JPanel
 		JButton builder = new JButton("Builder");
 		JButton basher = new JButton("Basher");
 		JButton paus = new JButton("Pause");
-		JButton end = new JButton("End");
+		JButton end = new JButton("Quit");
 
 		digger.addActionListener(new ActionListener()
 		{
@@ -104,14 +104,14 @@ public class ButtonPanel extends JPanel
 			}
 		});
 		
-		add(miner);
+//		add(miner);
 		add(digger);
-		add(exploder);
+//		add(exploder);
 		add(basher);
-		add(builder);
-		add(climber);
-		add(floater);
-		add(blocker);
+//		add(builder);
+//		add(climber);
+//		add(floater);
+//		add(blocker);
 		add(paus);
 		add(end);
 

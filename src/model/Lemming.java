@@ -2,9 +2,7 @@ package model;
 
 import shapes.Point;
 import shapes.Rectangle;
-import shapes.TerrainUnit;
 import shapes.TerrainPainterVisitor;
-import shapes.Triangle;
 
 public class Lemming
 {
@@ -46,6 +44,7 @@ public class Lemming
 	{
 		skill = null;
 	}
+	
 
 	public void move()
 	{
@@ -101,7 +100,7 @@ public class Lemming
 
 	public int getHeight()
 	{
-		int height = (int) (Math.sqrt(Math.pow(getWidth(), 2) - Math.pow((getWidth() / 2), 2)) + 0.5);
+		int height = lemming.getP1().getYint() - lemming.getP3().getYint();
 		return height;
 	}
 
@@ -120,6 +119,11 @@ public class Lemming
 	{
 		return isFalling;
 	}
+	
+	public Point getRightFoot()
+	{
+		return lemming.getP2();
+	}
 
 	public void setFalling(boolean isFalling)
 	{
@@ -130,6 +134,18 @@ public class Lemming
 	{
 		return lemming.isWithinBounds(temp);
 		
+	}
+
+	public void walk()
+	{
+		if (!isFalling && direction == RIGHT)
+		{
+			lemming.setPosition(lemming.getPosition().getXint() + 1, lemming.getPosition().getYint());
+		}	
+		else if (!isFalling && direction == LEFT)
+		{
+			lemming.setPosition(lemming.getPosition().getXint() - 1, lemming.getPosition().getYint());	
+		}
 	}
 
 }

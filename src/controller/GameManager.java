@@ -83,7 +83,7 @@ public class GameManager
 
 	public void end() 
 	{
-		
+		System.exit(1);
 		
 	}
 

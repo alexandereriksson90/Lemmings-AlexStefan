@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -8,19 +10,17 @@ import controller.GameManager;
 import model.BasherScenario;
 import model.DiggerScenario;
 import model.GameBoard;
-import model.Scenario;
+
 
 public class LemmingsApp extends JFrame
 {
 	private static final long serialVersionUID = 1L;
 	
-	private Scenario diggerScenario = new DiggerScenario();
-	private Scenario basherScenario = new BasherScenario();
-	private GameBoard gameBoard = new GameBoard(basherScenario);
-	private GameManager manager = new GameManager(gameBoard);
-	private GameBoardPanel gamePanel = new GameBoardPanel(manager);
-	private ButtonPanel skillPanel = new ButtonPanel(manager);
-	private StatusPanel statusPanel = new StatusPanel(manager);
+	private GameBoard gameBoard;
+	private GameManager manager;
+	private GameBoardPanel gamePanel;
+	private ButtonPanel skillPanel;
+	private StatusPanel statusPanel;
 	private Container c;
 	StatusThread status = new StatusThread();
 
@@ -30,15 +30,64 @@ public class LemmingsApp extends JFrame
 		c = getContentPane();
 		c.setLayout(new BorderLayout());
 		
-		c.add(gamePanel, BorderLayout.CENTER);
-		c.add(skillPanel, BorderLayout.SOUTH);
-		c.add(statusPanel, BorderLayout.NORTH);
+		createMenu();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(1200, 800);
 		setLocationRelativeTo(null);
 		setVisible(true);
-		manager.start();
 		status.start();
+	
+	}
+	
+	public void addNewScenario()
+	{
+		c.add(gamePanel, BorderLayout.CENTER);
+		c.add(skillPanel, BorderLayout.SOUTH);
+		c.add(statusPanel, BorderLayout.NORTH);
+		manager.start();
+		
+		
+	}
+	
+	public void createMenu()
+	{
+		JMenu menu = new JMenu("Choose Scenario");
+		JMenuItem diggerScenario = new JMenuItem("Digger Scenario");
+		JMenuItem basherScenario = new JMenuItem("Basher Scenario");
+		JMenuBar menuBar = new JMenuBar();
+		menu.add(diggerScenario);
+		menu.add(basherScenario);
+		menuBar.add(menu);
+		setJMenuBar(menuBar);
+		
+		diggerScenario.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent ae)
+			{
+				
+				c.removeAll();
+				gameBoard = new GameBoard(new DiggerScenario());
+				manager = new GameManager(gameBoard);
+				gamePanel = new GameBoardPanel(manager);
+				skillPanel = new ButtonPanel(manager);
+				statusPanel = new StatusPanel(manager);
+				addNewScenario();
+			}
+		});	
+
+		basherScenario.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent ae)
+			{
+				c.removeAll();
+				gameBoard = new GameBoard(new BasherScenario());
+				manager = new GameManager(gameBoard);
+				gamePanel = new GameBoardPanel(manager);
+				skillPanel = new ButtonPanel(manager);
+				statusPanel = new StatusPanel(manager);
+				addNewScenario();
+			}
+		});	
 	}
 
 	public static void main(String args[])

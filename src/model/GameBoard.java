@@ -192,14 +192,14 @@ public class GameBoard extends Observable
 				if (l.getDirection() == 1)
 				{
 					Point temp = new Point(l.getPosition().getXint()
-							+ l.getWidth() + 1, l.getPosition().getYint());
+							+ l.getWidth() -1, l.getPosition().getYint());
 					if (temp.between(((Wall) s).getP1(), ((Wall) s).getP4()))
 						return true;
 				}
 
 				else if (l.getDirection() == -1)
 				{
-					Point temp = new Point(l.getPosition().getXint() - 1, l
+					Point temp = new Point(l.getPosition().getXint() + 1, l
 							.getPosition().getYint());
 					if (temp.between(((Wall) s).getP3(), ((Wall) s).getP2()))
 						return true;

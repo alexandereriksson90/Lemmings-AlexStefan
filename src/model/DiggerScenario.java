@@ -1,14 +1,9 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import shapes.Entrance;
 import shapes.Exit;
 import shapes.Ground;
-import shapes.Line;
 import shapes.Point;
-import shapes.Rectangle;
 import shapes.TerrainList;
 import shapes.Wall;
 
@@ -16,7 +11,6 @@ public class DiggerScenario implements Scenario
 {
 	private final int lemmingsRequired = 2;
 	private final int nbrOfLemmings = 5;
-	private List<String> allowedSkills = new ArrayList<String>();
 	private TerrainList terrain = new TerrainList();
 	private final Point startPosition, homePosition;
 	
@@ -24,7 +18,6 @@ public class DiggerScenario implements Scenario
 	{
 		startPosition = new Point(125,80);
 		homePosition = new Point(960,350);
-		allowedSkills.add("Digger");
 		addTerrain();
 	}
 	
@@ -38,13 +31,6 @@ public class DiggerScenario implements Scenario
 	public Point getHomePosition()
 	{
 		return homePosition;
-	}
-
-
-	@Override
-	public List<String> getSkills()
-	{
-		return allowedSkills;
 	}
 
 	@Override

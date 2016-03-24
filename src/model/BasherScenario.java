@@ -1,8 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import shapes.Entrance;
 import shapes.Exit;
 import shapes.Ground;
@@ -14,7 +11,6 @@ public class BasherScenario implements Scenario
 {
 	private final int lemmingsRequired = 6;
 	private final int nbrOfLemmings = 10;
-	private List<String> allowedSkills = new ArrayList<String>();
 	private TerrainList terrain = new TerrainList();
 	private final Point startPosition, homePosition;
 
@@ -23,7 +19,7 @@ public class BasherScenario implements Scenario
 	{
 		startPosition = new Point(125,300);
 		homePosition = new Point(960,350);
-		allowedSkills.add("Digger");
+		
 		addTerrain();
 	}
 	@Override
@@ -36,13 +32,6 @@ public class BasherScenario implements Scenario
 	public Point getHomePosition()
 	{
 		return homePosition;
-	}
-
-
-	@Override
-	public List<String> getSkills()
-	{
-		return allowedSkills;
 	}
 
 	@Override
@@ -70,8 +59,8 @@ public class BasherScenario implements Scenario
 		terrain.add(new Entrance(new Point(100,startPosition.getYint()-40),new Point(140,startPosition.getYint())));
 		terrain.add(new Exit(new Point(960,310),new Point(1000,350)));
 		
-		terrain.add(new Wall(new Point(20,50),new Point(50,380)));
-		terrain.add(new Wall(new Point(300,50),new Point(800,350)));
+		terrain.add(new Wall(new Point(300,50),new Point(330,350)));
+		terrain.add(new Wall(new Point(20,50),new Point(50,380)));		
 		terrain.add(new Ground(new Point(50,350),new Point(1200,380)));
 		
 		
