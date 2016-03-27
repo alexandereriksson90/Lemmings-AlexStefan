@@ -34,7 +34,7 @@ public class LemmingsApp extends JFrame
 		setSize(1200, 800);
 		setLocationRelativeTo(null);
 		setVisible(true);
-		status.start();
+		
 
 	}
 
@@ -44,7 +44,8 @@ public class LemmingsApp extends JFrame
 		c.add(skillPanel, BorderLayout.SOUTH);
 		c.add(statusPanel, BorderLayout.NORTH);
 		manager.start();
-
+		status = new StatusThread();
+		status.start();
 	}
 
 	public void createMenu()
