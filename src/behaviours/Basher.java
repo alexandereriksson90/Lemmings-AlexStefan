@@ -15,7 +15,6 @@ public class Basher implements Behaviour
 	private Wall w = null;
 	private int executeCounter = 0;
 	private int bashDistance = 1;
-	private int x, y;
 
 	@Override
 	public Lemming getLemming()
@@ -45,17 +44,18 @@ public class Basher implements Behaviour
 			{
 				if (t instanceof Wall && w == null)
 				{
-					
-					Point p = new Point(lemming.getPosition().getXint()+lemming.getWidth(), lemming.getPosition().getYint());
+
+					Point p = new Point(lemming.getPosition().getXint() + lemming.getWidth(),
+							lemming.getPosition().getYint());
 
 					if (p.between(((Wall) t).getP1(), ((Wall) t).getP4()))
 					{
 						w = (Wall) t;
-						
+
 					}
 				}
 			}
-			if(w==null)
+			if (w == null)
 			{
 				bashWalk();
 			}
@@ -63,16 +63,15 @@ public class Basher implements Behaviour
 			{
 
 				model.getTerrain().remove(w);
-				model.getTerrain().add(new Wall(new Point(w.getP1().getXint(), w.getP2().getYint()-30), w.getP3()));
-				
-				model.getTerrain().add(bashWall = new Wall(new Point(w.getP4().getXint() + bashDistance, w.getP2().getYint() - 30),
-						w.getP2()));
+				model.getTerrain().add(new Wall(new Point(w.getP1().getXint(), w.getP2().getYint() - 30), w.getP3()));
+
+				model.getTerrain().add(bashWall = new Wall(
+						new Point(w.getP4().getXint() + bashDistance, w.getP2().getYint() - 30), w.getP2()));
 
 				executeCounter++;
 				bashWalk();
 
-
-			} else if(w != null)
+			} else if (w != null)
 			{
 
 				model.getTerrain().remove(bashWall);
@@ -84,7 +83,6 @@ public class Basher implements Behaviour
 				executeCounter++;
 				bashWalk();
 
-
 			}
 			if (executeCounter == 30)
 			{
@@ -95,7 +93,7 @@ public class Basher implements Behaviour
 		}
 
 	}
-	
+
 	public void bashWalk()
 	{
 		lemming.walk();
@@ -112,8 +110,6 @@ public class Basher implements Behaviour
 	public void setLemming(Lemming lemming)
 	{
 		this.lemming = lemming;
-		x = lemming.getPosition().getXint();
-		y = lemming.getPosition().getYint();
 
 	}
 

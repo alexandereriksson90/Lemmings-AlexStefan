@@ -6,74 +6,74 @@ import java.util.List;
 import java.util.Observable;
 
 public class ObservableList<TYPE> extends Observable implements Iterable<TYPE>
-  {
-  protected List<TYPE> list = new LinkedList<TYPE>();
+{
+	protected List<TYPE> list = new LinkedList<TYPE>();
 
-  public void add(TYPE o)
-    {
-    list.add(o);
-    setChanged();
-    notifyObservers();
-    
-    }
-  
-  public void addFirst(TYPE o)
-  {
-	  list.add(0, o);
-	  setChanged();
-	  notifyObservers();
-	 
-  }
+	public void add(TYPE o)
+	{
+		list.add(o);
+		setChanged();
+		notifyObservers();
 
-  public void remove(TYPE o)
-    {
-    if (list.contains(o))
-      {
-      list.remove(o);
-      setChanged();
-      notifyObservers();
-      }
-    }
+	}
 
-  public boolean contains(TYPE o)
-    {
-    return list.contains(o);
-    }
+	public void addFirst(TYPE o)
+	{
+		list.add(0, o);
+		setChanged();
+		notifyObservers();
 
-  public void add(ObservableList<TYPE> toAdd)
-    {
-    list.addAll(toAdd.list);
-    setChanged();
-    notifyObservers();
-    }
+	}
 
-  public void remove(ObservableList<TYPE> toRemove)
-    {
-    list.removeAll(toRemove.list);
-    setChanged();
-    notifyObservers();
-    }
+	public void remove(TYPE o)
+	{
+		if (list.contains(o))
+		{
+			list.remove(o);
+			setChanged();
+			notifyObservers();
+		}
+	}
 
-  public void clear()
-    {
-    list.clear();
-    setChanged();
-    notifyObservers();
-    }
+	public boolean contains(TYPE o)
+	{
+		return list.contains(o);
+	}
 
-  public int size()
-    {
-    return list.size();
-    }
+	public void add(ObservableList<TYPE> toAdd)
+	{
+		list.addAll(toAdd.list);
+		setChanged();
+		notifyObservers();
+	}
 
-  public TYPE get(int index)
-    {
-    return list.get(index);
-    }
+	public void remove(ObservableList<TYPE> toRemove)
+	{
+		list.removeAll(toRemove.list);
+		setChanged();
+		notifyObservers();
+	}
 
-  @Override
-  public Iterator<TYPE> iterator()
-    {
-    return list.iterator();
-    }
-  }
+	public void clear()
+	{
+		list.clear();
+		setChanged();
+		notifyObservers();
+	}
+
+	public int size()
+	{
+		return list.size();
+	}
+
+	public TYPE get(int index)
+	{
+		return list.get(index);
+	}
+
+	@Override
+	public Iterator<TYPE> iterator()
+	{
+		return list.iterator();
+	}
+}

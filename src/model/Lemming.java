@@ -20,7 +20,7 @@ public class Lemming
 
 	public Lemming(Point p)
 	{
-		lemming = new Rectangle(new Point(p.getXint()-15, p.getYint()-30), p);
+		lemming = new Rectangle(new Point(p.getXint() - 15, p.getYint() - 30), p);
 		direction = RIGHT;
 		isFalling = true;
 	}
@@ -44,7 +44,6 @@ public class Lemming
 	{
 		skill = null;
 	}
-	
 
 	public void move()
 	{
@@ -56,15 +55,15 @@ public class Lemming
 		} else if (isFalling && behaviour == null)
 		{
 			lemming.setPosition(lemming.getPosition().getXint(), lemming.getPosition().getYint() + 1);
-			
-		}else if (behaviour != null)
+
+		} else if (behaviour != null)
 		{
 			behaviour.execute();
-			
+
 		}
-		
+
 	}
-	
+
 	public void fall()
 	{
 		lemming.setPosition(lemming.getPosition().getXint(), lemming.getPosition().getYint() + 1);
@@ -119,7 +118,7 @@ public class Lemming
 	{
 		return isFalling;
 	}
-	
+
 	public Point getRightFoot()
 	{
 		return lemming.getP2();
@@ -133,7 +132,7 @@ public class Lemming
 	public boolean checkIfInBounds(Point temp)
 	{
 		return lemming.isWithinBounds(temp);
-		
+
 	}
 
 	public void walk()
@@ -141,10 +140,9 @@ public class Lemming
 		if (!isFalling && direction == RIGHT)
 		{
 			lemming.setPosition(lemming.getPosition().getXint() + 1, lemming.getPosition().getYint());
-		}	
-		else if (!isFalling && direction == LEFT)
+		} else if (!isFalling && direction == LEFT)
 		{
-			lemming.setPosition(lemming.getPosition().getXint() - 1, lemming.getPosition().getYint());	
+			lemming.setPosition(lemming.getPosition().getXint() - 1, lemming.getPosition().getYint());
 		}
 	}
 

@@ -61,7 +61,7 @@ public class Digger implements Behaviour
 
 				model.getTerrain().add(digGround = new Ground(new Point(x, y + digDistance),
 						new Point(x + lemming.getWidth(), y + 30)));
-				
+
 				executeCounter++;
 				lemming.fall();
 
@@ -72,7 +72,7 @@ public class Digger implements Behaviour
 
 				digGround = new Ground(new Point(x, lemming.getPosition().getYint() + digDistance),
 						new Point(x + lemming.getWidth(), y + 30));
-				
+
 				model.getTerrain().add(digGround);
 				executeCounter++;
 				lemming.fall();
@@ -82,8 +82,7 @@ public class Digger implements Behaviour
 			{
 				lemming.setBehaviour(null);
 				model.getTerrain().remove(digGround);
-				
-				
+
 			}
 		}
 

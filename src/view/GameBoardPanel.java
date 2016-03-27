@@ -33,7 +33,7 @@ public class GameBoardPanel extends JPanel implements Observer
 	public void update(Observable arg0, Object arg1)
 	{
 		repaint();
-		
+
 	}
 
 	public void paintComponent(Graphics g)
@@ -42,16 +42,18 @@ public class GameBoardPanel extends JPanel implements Observer
 		TerrainPainterVisitor painter = new TerrainPainterVisitor(g);
 		mediator.addTerrain(painter);
 		mediator.addLemmings(painter);
-		
+
 	}
-	
+
 	public void addMouseAdapter()
 	{
-		this.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mousePressed(MouseEvent e) {
-		        mediator.checkIfLemming(e.getX(),e.getY());
-		    }
+		this.addMouseListener(new MouseAdapter()
+		{
+			@Override
+			public void mousePressed(MouseEvent e)
+			{
+				mediator.checkIfLemming(e.getX(), e.getY());
+			}
 		});
 	}
 }

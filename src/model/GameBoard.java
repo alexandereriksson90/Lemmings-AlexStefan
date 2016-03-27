@@ -45,16 +45,17 @@ public class GameBoard extends Observable
 	{
 		return lemmingList;
 	}
-	
+
 	public int getRequiredLemmings()
 	{
 		return scenario.getLemmingsRequired();
 	}
-	
+
 	public int getLemmingsOut()
 	{
 		return lemmingsOut;
 	}
+
 	public void start()
 	{
 
@@ -65,7 +66,7 @@ public class GameBoard extends Observable
 		moveThread.start();
 
 	}
-	
+
 	public void gameLost()
 	{
 		releaseThread.interrupt();
@@ -86,18 +87,17 @@ public class GameBoard extends Observable
 
 		for (int i = 0; i < lemmingList.size(); i++)
 		{
-			
+
 			lemmingList.get(i).setFalling(shouldFall(lemmingList.get(i)));
 			lemmingList.get(i).changeDirection(shouldTurn(lemmingList.get(i)));
 			lemmingList.get(i).move();
-			
+
 			shouldKillLemming(scenario.isLemmingOutOfMap(lemmingList.get(i)), lemmingList.get(i));
-			if(lemmingList.size() != 0)
+			if (lemmingList.size() != 0)
 				isAtExit(lemmingList.get(i));
 		}
 
-		if (lemmingList.size() == 0
-				&& savedLemmings >= scenario.getLemmingsRequired())
+		if (lemmingList.size() == 0 && savedLemmings >= scenario.getLemmingsRequired())
 		{
 			gameWon();
 
@@ -115,15 +115,15 @@ public class GameBoard extends Observable
 
 	private void shouldKillLemming(boolean lemmingOutOfMap, Lemming lemming)
 	{
-		if(lemmingOutOfMap == true)
+		if (lemmingOutOfMap == true)
 		{
 			lemmingList.remove(lemming);
 			killedLemmings++;
 			lemmingsOut--;
 		}
-		
+
 	}
-	
+
 	public boolean hasLost()
 	{
 		return gameLost;
@@ -145,8 +145,7 @@ public class GameBoard extends Observable
 	private void isAtExit(Lemming l)
 	{
 		if (l.getPosition().getXint() == scenario.getHomePosition().getXint()
-				&& l.getPosition().getYint() == scenario.getHomePosition()
-						.getYint())
+				&& l.getPosition().getYint() == scenario.getHomePosition().getYint())
 		{
 			lemmingList.remove(l);
 			savedLemmings++;
@@ -164,15 +163,13 @@ public class GameBoard extends Observable
 
 			if (s instanceof Ground && l.getDirection() == 1)
 			{
-				if (l.getPosition().between(((Ground) s).getP1(),
-						((Ground) s).getP3()))
+				if (l.getPosition().between(((Ground) s).getP1(), ((Ground) s).getP3()))
 				{
 					return false;
 				}
 			} else if (s instanceof Ground && l.getDirection() == -1)
 			{
-				if (new Point(l.getPosition().getXint() + 30, l.getPosition()
-						.getYint()).between(((Ground) s).getP1(),
+				if (new Point(l.getPosition().getXint() + 30, l.getPosition().getYint()).between(((Ground) s).getP1(),
 						((Ground) s).getP3()))
 				{
 					return false;
@@ -191,16 +188,14 @@ public class GameBoard extends Observable
 
 				if (l.getDirection() == 1)
 				{
-					Point temp = new Point(l.getPosition().getXint()
-							+ l.getWidth() -1, l.getPosition().getYint());
+					Point temp = new Point(l.getPosition().getXint() + l.getWidth() - 1, l.getPosition().getYint());
 					if (temp.between(((Wall) s).getP1(), ((Wall) s).getP4()))
 						return true;
 				}
 
 				else if (l.getDirection() == -1)
 				{
-					Point temp = new Point(l.getPosition().getXint() + 1, l
-							.getPosition().getYint());
+					Point temp = new Point(l.getPosition().getXint() + 1, l.getPosition().getYint());
 					if (temp.between(((Wall) s).getP3(), ((Wall) s).getP2()))
 						return true;
 
@@ -367,6 +362,5 @@ public class GameBoard extends Observable
 	{
 
 	}
-
 
 }

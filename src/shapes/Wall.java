@@ -18,7 +18,7 @@ public class Wall extends Rectangle
 	{
 		return new Point(getP2().getXint(), getP1().getYint());
 	}
-	
+
 	public Point getP4()
 	{
 		return new Point(getP1().getXint(), getP2().getYint());

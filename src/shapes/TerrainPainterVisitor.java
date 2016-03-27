@@ -9,7 +9,6 @@ public class TerrainPainterVisitor implements TerrainVisitor
 {
 	private Graphics graphics;
 
-
 	public TerrainPainterVisitor(Graphics g)
 	{
 		graphics = g;
@@ -33,10 +32,10 @@ public class TerrainPainterVisitor implements TerrainVisitor
 		int x2 = (int) (ground.getP2().getX() + 0.5);
 		int y1 = (int) (ground.getP1().getY() + 0.5);
 		int y2 = (int) (ground.getP2().getY() + 0.5);
-		
-		graphics.setColor(new Color(139,69,19));
+
+		graphics.setColor(new Color(139, 69, 19));
 		graphics.fillRect(x1, y1, x2 - x1, y2 - y1);
-		
+
 	}
 
 	@Override
@@ -46,10 +45,10 @@ public class TerrainPainterVisitor implements TerrainVisitor
 		int x2 = (int) (wall.getP2().getX() + 0.5);
 		int y1 = (int) (wall.getP1().getY() + 0.5);
 		int y2 = (int) (wall.getP2().getY() + 0.5);
-		
-		graphics.setColor(new Color(139,69,19));
+
+		graphics.setColor(new Color(139, 69, 19));
 		graphics.fillRect(x1, y1, x2 - x1, y2 - y1);
-		
+
 	}
 
 	@Override
@@ -59,10 +58,10 @@ public class TerrainPainterVisitor implements TerrainVisitor
 		int x2 = (int) (entrance.getP2().getX() + 0.5);
 		int y1 = (int) (entrance.getP1().getY() + 0.5);
 		int y2 = (int) (entrance.getP2().getY() + 0.5);
-		
+
 		graphics.setColor(Color.BLACK);
 		graphics.drawRect(x1, y1, x2 - x1, y2 - y1);
-		
+
 	}
 
 	@Override
@@ -72,11 +71,10 @@ public class TerrainPainterVisitor implements TerrainVisitor
 		int x2 = (int) (exit.getP2().getX() + 0.5);
 		int y1 = (int) (exit.getP1().getY() + 0.5);
 		int y2 = (int) (exit.getP2().getY() + 0.5);
-		
-		graphics.setColor(new Color(0,191,255));
-		graphics.fillRect(x1, y1, x2 - x1, y2 - y1);		
-		
+
+		graphics.setColor(new Color(0, 191, 255));
+		graphics.fillRect(x1, y1, x2 - x1, y2 - y1);
+
 	}
 
-	
 }

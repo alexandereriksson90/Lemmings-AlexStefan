@@ -11,11 +11,10 @@ import model.BasherScenario;
 import model.DiggerScenario;
 import model.GameBoard;
 
-
 public class LemmingsApp extends JFrame
 {
 	private static final long serialVersionUID = 1L;
-	
+
 	private GameBoard gameBoard;
 	private GameManager manager;
 	private GameBoardPanel gamePanel;
@@ -29,26 +28,25 @@ public class LemmingsApp extends JFrame
 		super("Lemmings");
 		c = getContentPane();
 		c.setLayout(new BorderLayout());
-		
+
 		createMenu();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(1200, 800);
 		setLocationRelativeTo(null);
 		setVisible(true);
 		status.start();
-	
+
 	}
-	
+
 	public void addNewScenario()
 	{
 		c.add(gamePanel, BorderLayout.CENTER);
 		c.add(skillPanel, BorderLayout.SOUTH);
 		c.add(statusPanel, BorderLayout.NORTH);
 		manager.start();
-		
-		
+
 	}
-	
+
 	public void createMenu()
 	{
 		JMenu menu = new JMenu("Choose Scenario");
@@ -59,12 +57,12 @@ public class LemmingsApp extends JFrame
 		menu.add(basherScenario);
 		menuBar.add(menu);
 		setJMenuBar(menuBar);
-		
+
 		diggerScenario.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent ae)
 			{
-				
+
 				c.removeAll();
 				gameBoard = new GameBoard(new DiggerScenario());
 				manager = new GameManager(gameBoard);
@@ -73,7 +71,7 @@ public class LemmingsApp extends JFrame
 				statusPanel = new StatusPanel(manager);
 				addNewScenario();
 			}
-		});	
+		});
 
 		basherScenario.addActionListener(new ActionListener()
 		{
@@ -87,30 +85,29 @@ public class LemmingsApp extends JFrame
 				statusPanel = new StatusPanel(manager);
 				addNewScenario();
 			}
-		});	
+		});
 	}
 
 	public static void main(String args[])
 	{
 		new LemmingsApp();
 	}
-	
+
 	private void gameFinished()
 	{
-		String message =
-		null;
-		if(manager.hasWon()) 
+		String message = null;
+		if (manager.hasWon())
 		{
 			message = "Congratulations you have won!";
-		} else if(manager.hasLost())
+		} else if (manager.hasLost())
 		{
 			message = "Too bad man you have lost!";
 		}
-		JOptionPane.showMessageDialog (null, message , "Game Over", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, message, "Game Over", JOptionPane.INFORMATION_MESSAGE);
 		status.interrupt();
-		
+
 	}
-	
+
 	private class StatusThread implements Runnable
 	{
 		Thread t;

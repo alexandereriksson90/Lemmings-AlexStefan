@@ -26,7 +26,7 @@ public class Rectangle extends TerrainUnit
 	{
 		return p2;
 	}
-	
+
 	public Point getP3()
 	{
 		return new Point(p1.getXint(), p2.getYint());

@@ -14,14 +14,14 @@ public class BasherScenario implements Scenario
 	private TerrainList terrain = new TerrainList();
 	private final Point startPosition, homePosition;
 
-	
 	public BasherScenario()
 	{
-		startPosition = new Point(125,300);
-		homePosition = new Point(960,350);
-		
+		startPosition = new Point(125, 300);
+		homePosition = new Point(960, 350);
+
 		addTerrain();
 	}
+
 	@Override
 	public Point getStartPosition()
 	{
@@ -51,19 +51,19 @@ public class BasherScenario implements Scenario
 	{
 		return terrain;
 	}
-	
+
 	@Override
 	public void addTerrain()
 	{
-		
-		terrain.add(new Entrance(new Point(100,startPosition.getYint()-40),new Point(140,startPosition.getYint())));
-		terrain.add(new Exit(new Point(960,310),new Point(1000,350)));
-		
-		terrain.add(new Wall(new Point(300,50),new Point(330,350)));
-		terrain.add(new Wall(new Point(20,50),new Point(50,380)));		
-		terrain.add(new Ground(new Point(50,350),new Point(1200,380)));
-		
-		
+
+		terrain.add(
+				new Entrance(new Point(100, startPosition.getYint() - 40), new Point(140, startPosition.getYint())));
+		terrain.add(new Exit(new Point(960, 310), new Point(1000, 350)));
+
+		terrain.add(new Wall(new Point(300, 50), new Point(330, 350)));
+		terrain.add(new Wall(new Point(20, 50), new Point(50, 380)));
+		terrain.add(new Ground(new Point(50, 350), new Point(1200, 380)));
+
 	}
 
 	@Override

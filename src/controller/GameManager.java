@@ -32,23 +32,23 @@ public class GameManager
 
 	public void addTerrain(TerrainVisitor visitor)
 	{
-		synchronized(model.getTerrain())
+		synchronized (model.getTerrain())
 		{
-		for (TerrainUnit shape : model.getTerrain())
-			shape.accept(visitor);
+			for (TerrainUnit shape : model.getTerrain())
+				shape.accept(visitor);
 		}
 	}
-	
+
 	public int getLemmingsOut()
 	{
 		return model.getLemmingsOut();
 	}
-	
+
 	public boolean hasWon()
 	{
 		return model.hasWon();
 	}
-	
+
 	public boolean hasLost()
 	{
 		return model.hasLost();
@@ -63,7 +63,7 @@ public class GameManager
 	{
 		model.pause();
 	}
-	
+
 	public int getRequiredLemmings()
 	{
 		return model.getRequiredLemmings();
@@ -81,18 +81,16 @@ public class GameManager
 
 	}
 
-	public void end() 
+	public void end()
 	{
 		System.exit(1);
-		
+
 	}
 
-	public void checkIfLemming(int x, int y) 
+	public void checkIfLemming(int x, int y)
 	{
-		model.checkIfLemming(x,y);
-		
+		model.checkIfLemming(x, y);
+
 	}
-
-
 
 }

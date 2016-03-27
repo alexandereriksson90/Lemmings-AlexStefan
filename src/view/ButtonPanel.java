@@ -11,7 +11,7 @@ import controller.GameManager;
 public class ButtonPanel extends JPanel
 {
 	private static final long serialVersionUID = 1L;
-	
+
 	GameManager manager;
 
 	public ButtonPanel(GameManager manager)
@@ -46,7 +46,7 @@ public class ButtonPanel extends JPanel
 			{
 				manager.setBehaviour("Exploder");
 			}
-		});	
+		});
 		floater.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent ae)
@@ -103,15 +103,15 @@ public class ButtonPanel extends JPanel
 				manager.end();
 			}
 		});
-		
-//		add(miner);
+
+		// add(miner);
 		add(digger);
-//		add(exploder);
+		// add(exploder);
 		add(basher);
-//		add(builder);
-//		add(climber);
-//		add(floater);
-//		add(blocker);
+		// add(builder);
+		// add(climber);
+		// add(floater);
+		// add(blocker);
 		add(paus);
 		add(end);
 

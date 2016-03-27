@@ -11,8 +11,8 @@ public abstract class TerrainUnit implements Cloneable
 
 	public TerrainUnit(Point p)
 	{
-		
-		this.setPosition(p); 
+
+		this.setPosition(p);
 	}
 
 	public abstract void reDefine(double x, double y); // size, mm
@@ -41,11 +41,9 @@ public abstract class TerrainUnit implements Cloneable
 
 	public void setPosition(Point p)
 	{
-	
+
 		position = p;
 	}
-	
-	
 
 	public abstract void accept(TerrainVisitor visitor);
 

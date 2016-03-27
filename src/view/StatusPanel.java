@@ -14,7 +14,7 @@ public class StatusPanel extends JPanel implements Observer
 	GameManager manager;
 	JLabel lemmingsOut = new JLabel();
 	JLabel lemmingsToSave = new JLabel();
-	JLabel lemmingsHome= new JLabel();
+	JLabel lemmingsHome = new JLabel();
 	private static final long serialVersionUID = 1L;
 
 	public StatusPanel(GameManager manager)
@@ -34,6 +34,6 @@ public class StatusPanel extends JPanel implements Observer
 		lemmingsOut.setText("Lemmings Out: " + manager.getLemmingsOut());
 		lemmingsToSave.setText("Required Lemmings: " + manager.getRequiredLemmings());
 		lemmingsHome.setText("Saved Lemmings: " + manager.getSavedLemmings());
-		
+
 	}
 }
