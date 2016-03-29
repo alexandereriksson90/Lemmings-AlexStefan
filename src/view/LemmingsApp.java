@@ -31,7 +31,7 @@ public class LemmingsApp extends JFrame
 
 		createMenu();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(1200, 800);
+		setSize(1200, 700);
 		setLocationRelativeTo(null);
 		setVisible(true);
 		

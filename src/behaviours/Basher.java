@@ -61,12 +61,14 @@ public class Basher implements Behaviour
 			}
 			if (bashWall == null && w != null)
 			{
-
+				model.getTerrain().add(new Wall(w.getP1(), new Point(w.getP3().getXint(), w.getP2().getYint()-30)));
+				
 				model.getTerrain().remove(w);
-				model.getTerrain().add(new Wall(new Point(w.getP1().getXint(), w.getP2().getYint() - 30), w.getP3()));
-
+				
 				model.getTerrain().add(bashWall = new Wall(
 						new Point(w.getP4().getXint() + bashDistance, w.getP2().getYint() - 30), w.getP2()));
+				
+				
 
 				executeCounter++;
 				bashWalk();
